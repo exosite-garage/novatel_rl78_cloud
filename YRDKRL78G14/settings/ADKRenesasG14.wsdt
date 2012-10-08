@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<Workspace>
+  <ConfigDictionary>
+    
+  <CurrentConfigs><Project>ADKRenesasG14/Debug</Project></CurrentConfigs></ConfigDictionary>
+  <Desktop>
+    <Static>
+      <Workspace>
+        <ColumnWidths>
+          
+          
+          
+          
+        <Column0>304</Column0><Column1>27</Column1><Column2>27</Column2><Column3>27</Column3></ColumnWidths>
+      </Workspace>
+      <Build>
+        <PreferedWindows>
+          
+          
+          
+          
+        <Position>0</Position><ScreenPosX>0</ScreenPosX><ScreenPosY>0</ScreenPosY><Windows/></PreferedWindows>
+        
+        
+        
+        
+      <ColumnWidth0>20</ColumnWidth0><ColumnWidth1>750</ColumnWidth1><ColumnWidth2>200</ColumnWidth2><ColumnWidth3>50</ColumnWidth3></Build>
+      <Find-in-Files>
+        <PreferedWindows>
+          
+          
+          
+          
+        <Position>3</Position><ScreenPosX>0</ScreenPosX><ScreenPosY>0</ScreenPosY><Windows/></PreferedWindows>
+        
+        
+        
+      <ColumnWidth0>603</ColumnWidth0><ColumnWidth1>51</ColumnWidth1><ColumnWidth2>622</ColumnWidth2></Find-in-Files>
+    <TerminalIO/><Debug-Log><PreferedWindows><Position>0</Position><ScreenPosX>0</ScreenPosX><ScreenPosY>0</ScreenPosY><Windows/></PreferedWindows><ColumnWidth0>20</ColumnWidth0><ColumnWidth1>1085</ColumnWidth1></Debug-Log><SourceBrowser/></Static>
+    <Windows>
+      
+    <Wnd0>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-5694-22965</Identity>
+            <TabName>Workspace</TabName>
+            <Factory>Workspace</Factory>
+            <Session>
+              
+            <NodeDict><ExpandedNode>ADKRenesasG14</ExpandedNode><ExpandedNode>ADKRenesasG14/Apps</ExpandedNode><ExpandedNode>ADKRenesasG14/CmdLib</ExpandedNode><ExpandedNode>ADKRenesasG14/applilet3_src</ExpandedNode></NodeDict></Session>
+          </Tab>
+        <Tab><Identity>TabID-5967-8517</Identity><TabName>Source Browser</TabName><Factory>SourceBrowser</Factory><Session><TypeFilter>2147483647</TypeFilter><FileFilter>1</FileFilter></Session></Tab></Tabs>
+        
+      <SelectedTab>0</SelectedTab></Wnd0><Wnd1><Tabs><Tab><Identity>TabID-11780-8818</Identity><TabName>Build</TabName><Factory>Build</Factory><Session/></Tab><Tab><Identity>TabID-10735-8837</Identity><TabName>Debug Log</TabName><Factory>Debug-Log</Factory><Session/></Tab></Tabs><SelectedTab>0</SelectedTab></Wnd1></Windows>
+    <Editor>
+      
+      
+      
+      
+    <Pane><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\CmdLib\GainSpan_SPI.c</Filename><XPos>0</XPos><YPos>293</YPos><SelStart>12846</SelStart><SelEnd>12846</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\Apps\App_Startup.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>22132</SelStart><SelEnd>22132</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\CmdLib\AtCmdLib.c</Filename><XPos>0</XPos><YPos>652</YPos><SelStart>27660</SelStart><SelEnd>27660</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\Apps\App_Common.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\Apps\App_Connect.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>789</SelStart><SelEnd>789</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\drv\Glyph\lcd.c</Filename><XPos>0</XPos><YPos>84</YPos><SelStart>5440</SelStart><SelEnd>5440</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\drv\Glyph\lcd.h</Filename><XPos>0</XPos><YPos>51</YPos><SelStart>2950</SelStart><SelEnd>2960</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\drv\Timer.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\system\mstimer.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>827</SelStart><SelEnd>839</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\system\mstimer.c</Filename><XPos>0</XPos><YPos>73</YPos><SelStart>3223</SelStart><SelEnd>3223</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\drv\Glyph\glyph_cfg.h</Filename><XPos>0</XPos><YPos>12</YPos><SelStart>1205</SelStart><SelEnd>1205</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\drv\Glyph\glyph_register.c</Filename><XPos>0</XPos><YPos>36</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\Apps\App_Exosite.c</Filename><XPos>0</XPos><YPos>315</YPos><SelStart>7871</SelStart><SelEnd>7871</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\main.c</Filename><XPos>0</XPos><YPos>81</YPos><SelStart>3156</SelStart><SelEnd>3156</SelEnd></Tab><ActiveTab>13</ActiveTab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\HostApp.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>696</SelStart><SelEnd>696</SelEnd></Tab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
+    <Positions>
+      
+      
+      
+      
+      
+    <Top><Row0><Sizes><Toolbar-01c048f8><key>iaridepm.enu1</key></Toolbar-01c048f8></Sizes></Row0><Row1><Sizes/></Row1><Row2><Sizes/></Row2><Row3><Sizes/></Row3><Row4><Sizes/></Row4></Top><Left><Row0><Sizes><Wnd0><Rect><Top>-2</Top><Left>-2</Left><Bottom>531</Bottom><Right>378</Right><x>-2</x><y>-2</y><xscreen>798</xscreen><yscreen>679</yscreen><sizeHorzCX>595078</sizeHorzCX><sizeHorzCY>777778</sizeHorzCY><sizeVertCX>283371</sizeVertCX><sizeVertCY>610538</sizeVertCY></Rect></Wnd0></Sizes></Row0></Left><Right><Row0><Sizes/></Row0></Right><Bottom><Row0><Sizes><Wnd1><Rect><Top>-2</Top><Left>-2</Left><Bottom>297</Bottom><Right>1343</Right><x>-2</x><y>-2</y><xscreen>1345</xscreen><yscreen>299</yscreen><sizeHorzCX>1002983</sizeHorzCX><sizeHorzCY>342497</sizeHorzCY><sizeVertCX>322893</sizeVertCX><sizeVertCY>583047</sizeVertCY></Rect></Wnd1></Sizes></Row0></Bottom><Float><Sizes/></Float></Positions>
+  </Desktop>
+</Workspace>
+
+
