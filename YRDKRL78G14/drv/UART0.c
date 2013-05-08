@@ -30,6 +30,7 @@
 #define UART0_RE_INTERRUPT_PRIORITY 1U  // Low
 #endif
 
+#define MAIN_SYSTEM_CLOCK        32000000
 /*-------------------------------------------------------------------------*
  * Globals:
  *-------------------------------------------------------------------------*/
@@ -65,7 +66,7 @@ void UART0_SetBaudRate(uint32_t baud)
     /*  Calculate division ratio of the operation clock to be stored in bits 15:9 
     of the SDRmn register. */
     
-    baud_devisor = ((RL78_MAIN_SYSTEM_CLOCK / baud / 2) - 1);
+    baud_devisor = ((MAIN_SYSTEM_CLOCK / baud / 2) - 1);
     
     /* increase the fCLK devisor each time the baud rate is divided until it fits */
     for(fCLK_devisor = 0; fCLK_devisor<12; fCLK_devisor++)
@@ -85,6 +86,20 @@ void UART0_SetBaudRate(uint32_t baud)
     }
 }
 
+void UART0_ResetBuffers()
+{
+ 
+  
+  // reset any errors
+    SIR01 = _SAU_SIRMN_FECTMN | _SAU_SIRMN_PECTMN | _SAU_SIRMN_OVCTMN;
+  /* Reset FIFO buffers */
+    G_UART0_RXIn = G_UART0_RXOut = 0;
+    G_UART0_TXIn = G_UART0_TXOut = 0;
+    G_UART0_TX_Empty = true;
+    
+     ST0 = 1;
+     SS0 = 1;
+}
 /*---------------------------------------------------------------------------*
  * Routine:  UART0_Start
  *---------------------------------------------------------------------------*
@@ -109,9 +124,11 @@ void UART0_Start(uint32_t baud)
     NOP();
     NOP();
     NOP();
+    
+    SPS0 = _0009_SAU_CK00_FCLK_9 | _0020_SAU_CK01_FCLK_2;
   
     /* disable UART0 receive and transmit */
-    ST0 |= _SAU_CH1_STOP_TRG_ON | _SAU_CH0_STOP_TRG_ON;    
+    ST0 |= _SAU_CH0_STOP_TRG_ON | _SAU_CH0_STOP_TRG_ON;    
     
     /* Turn Off Interrupts */
     STMK0 = 1U;    /* disable INTST0 interrupt */
@@ -149,22 +166,22 @@ void UART0_Start(uint32_t baud)
     
     UART0_SetBaudRate(baud);
     
-    PM1 |= 0x02U;   /* Set RxD0 pin */
+    PM5 |= 0x01U;   /* Set RxD0 pin */
     
-    P1 |= 0x04U;    /* Set TxD0 pin */
-    PM1 &= 0xFBU;
+    P5 |= 0x02U;    /* Set TxD0 pin */
+    PM5 &= 0xFDU;
     
     STIF0 = 0U;    /* clear INTST0 interrupt flag */
-	STMK0 = 0U;    /* enable INTST0 interrupt */
-	SRIF0 = 0U;    /* clear INTSR0 interrupt flag */
-	SRMK0 = 0U;    /* enable INTSR0 interrupt */
-	SREIF0 = 0U;	/* clear INTSRE0 interrupt flag */
-	SREMK0 = 0U;	/* enable INTSRE0 interrupt */
-	SO0 |= _SAU_CH0_DATA_OUTPUT_1;    /* output level normal */
-	SOE0 |= _SAU_CH0_OUTPUT_ENABLE;    /* enable UART0 output */
-	
+    STMK0 = 0U;    /* enable INTST0 interrupt */
+    SRIF0 = 0U;    /* clear INTSR0 interrupt flag */
+    SRMK0 = 0U;    /* enable INTSR0 interrupt */
+    SREIF0 = 0U;  /* clear INTSRE0 interrupt flag */
+    SREMK0 = 0U;  /* enable INTSRE0 interrupt */
+    SO0 |= _SAU_CH0_DATA_OUTPUT_1;    /* output level normal */
+    SOE0 |= _SAU_CH0_OUTPUT_ENABLE;    /* enable UART0 output */
+  
     /* enable UART0 receive and transmit */
-    SS0 |= _SAU_CH1_START_TRG_ON | _SAU_CH0_START_TRG_ON;	
+    SS0 |= _SAU_CH1_START_TRG_ON | _SAU_CH0_START_TRG_ON;  
 }
 
 /*---------------------------------------------------------------------------*
@@ -183,13 +200,13 @@ void UART0_Stop(void)
     /* disable UART0 receive and transmit */
     ST0 |= _SAU_CH1_STOP_TRG_ON | _SAU_CH0_STOP_TRG_ON;
     
-	SOE0 &= ~_SAU_CH0_OUTPUT_ENABLE;	/* disable UART0 output */
-	STMK0 = 1U;	/* disable INTST0 interrupt */
-	STIF0 = 0U;	/* clear INTST0 interrupt flag */
-	SRMK0 = 1U;	/* disable INTSR0 interrupt */
-	SRIF0 = 0U;	/* clear INTSR0 interrupt flag */
-	SREMK0 = 1U;	/* disable INTSRE0 interrupt */
-	SREIF0 = 0U;	/* clear INTSRE0 interrupt flag */
+    SOE0 &= ~_SAU_CH0_OUTPUT_ENABLE;  /* disable UART0 output */
+    STMK0 = 1U;  /* disable INTST0 interrupt */
+    STIF0 = 0U;  /* clear INTST0 interrupt flag */
+    SRMK0 = 1U;  /* disable INTSR0 interrupt */
+    SRIF0 = 0U;  /* clear INTSR0 interrupt flag */
+    SREMK0 = 1U;  /* disable INTSRE0 interrupt */
+    SREIF0 = 0U;  /* clear INTSRE0 interrupt flag */
 }
 
 /*---------------------------------------------------------------------------*
@@ -355,7 +372,7 @@ bool UART0_IsTransmitEmpty(void)
 __interrupt void UART0_TX_ISRHandler(void)
 {
     /* Clear the interrupt as the interrupt has been processed */
-    STIF0 = 0U;	/* clear INTST0 interrupt flag */
+    STIF0 = 0U;  /* clear INTST0 interrupt flag */
 
     /* Is more data waiting to be sent? */
     if (G_UART0_TXIn != G_UART0_TXOut) {
@@ -405,7 +422,7 @@ __interrupt void UART0_RX_ISRHandler(void)
     }
     
     /* Done with the receive interrupt */
-    SRIF0 = 0U;	/* clear INTSR0 interrupt flag */
+    SRIF0 = 0U;  /* clear INTSR0 interrupt flag */
 }
 
 /*---------------------------------------------------------------------------*
@@ -442,3 +459,6 @@ __interrupt void UART0_RXError_ISRHandler(void)
 /*-------------------------------------------------------------------------*
  * End of File:  UART0.c
  *-------------------------------------------------------------------------*/
+
+
+

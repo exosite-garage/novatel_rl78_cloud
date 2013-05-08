@@ -155,14 +155,14 @@ void UART2_Start(uint32_t baud)
     PM1 &= 0xF7U;
     
     STIF2 = 0U;    /* clear INTST0 interrupt flag */
-	STMK2 = 0U;    /* enable INTST0 interrupt */
-	SRIF2 = 0U;    /* clear INTSR0 interrupt flag */
-	SRMK2 = 0U;    /* enable INTSR0 interrupt */
-	SREIF2 = 0U;	/* clear INTSRE0 interrupt flag */
-	SREMK2 = 0U;	/* enable INTSRE0 interrupt */
-	SO1 |= _SAU_CH0_DATA_OUTPUT_1;    /* output level normal */
-	SOE1 |= _SAU_CH0_OUTPUT_ENABLE;    /* enable UART2 output */
-	
+    STMK2 = 0U;    /* enable INTST0 interrupt */
+    SRIF2 = 0U;    /* clear INTSR0 interrupt flag */
+    SRMK2 = 0U;    /* enable INTSR0 interrupt */
+    SREIF2 = 0U;  /* clear INTSRE0 interrupt flag */
+    SREMK2 = 0U;  /* enable INTSRE0 interrupt */
+    SO1 |= _SAU_CH0_DATA_OUTPUT_1;    /* output level normal */
+    SOE1 |= _SAU_CH0_OUTPUT_ENABLE;    /* enable UART2 output */
+  
     /* enable UART2 receive and transmit */
     SS1 |= _SAU_CH1_START_TRG_ON | _SAU_CH0_START_TRG_ON;
 }
@@ -183,13 +183,13 @@ void UART2_Stop(void)
     /* disable UART2 receive and transmit */
     ST1 |= _SAU_CH1_STOP_TRG_ON | _SAU_CH0_STOP_TRG_ON;
     
-	SOE1 &= ~_SAU_CH0_OUTPUT_ENABLE;	/* disable UART2 output */
-	STMK2 = 1U;	/* disable INTST0 interrupt */
-	STIF2 = 0U;	/* clear INTST0 interrupt flag */
-	SRMK2 = 1U;	/* disable INTSR0 interrupt */
-	SRIF2 = 0U;	/* clear INTSR0 interrupt flag */
-	SREMK2 = 1U;	/* disable INTSRE0 interrupt */
-	SREIF2 = 0U;	/* clear INTSRE0 interrupt flag */
+    SOE1 &= ~_SAU_CH0_OUTPUT_ENABLE;  /* disable UART2 output */
+    STMK2 = 1U;  /* disable INTST0 interrupt */
+    STIF2 = 0U;  /* clear INTST0 interrupt flag */
+    SRMK2 = 1U;  /* disable INTSR0 interrupt */
+    SRIF2 = 0U;  /* clear INTSR0 interrupt flag */
+    SREMK2 = 1U;  /* disable INTSRE0 interrupt */
+    SREIF2 = 0U;  /* clear INTSRE0 interrupt flag */
 }
 
 /*---------------------------------------------------------------------------*
@@ -355,7 +355,7 @@ bool UART2_IsTransmitEmpty(void)
 __interrupt void UART2_TX_ISRHandler(void)
 {
     /* Clear the interrupt as the interrupt has been processed */
-    STIF2 = 0U;	/* clear INTST0 interrupt flag */
+    STIF2 = 0U;  /* clear INTST0 interrupt flag */
 
     /* Is more data waiting to be sent? */
     if (G_UART2_TXIn != G_UART2_TXOut) {
@@ -371,6 +371,7 @@ __interrupt void UART2_TX_ISRHandler(void)
     }
 }
 
+#if 0
 /*---------------------------------------------------------------------------*
  * Interrupt Routine:  UART2_RX_ISRHandler
  *---------------------------------------------------------------------------*
@@ -405,8 +406,9 @@ __interrupt void UART2_RX_ISRHandler(void)
     }
     
     /* Done with the receive interrupt */
-    SRIF0 = 0U;	/* clear INTSR0 interrupt flag */
+    SRIF0 = 0U;  /* clear INTSR0 interrupt flag */
 }
+#endif
 
 /*---------------------------------------------------------------------------*
  * Interrupt Routine:  UART2_RXError_ISRHandler
@@ -442,3 +444,6 @@ __interrupt void UART2_RXError_ISRHandler(void)
 /*-------------------------------------------------------------------------*
  * End of File:  UART2.c
  *-------------------------------------------------------------------------*/
+
+
+

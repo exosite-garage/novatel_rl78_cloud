@@ -211,24 +211,24 @@ void SPI_Init(uint32_t bitsPerSecond)
     CSIPR010 = SPI_TX_INT_PRIORITY;
     
     SIR02 = _SAU_SIRMN_FECTMN | _SAU_SIRMN_PECTMN | _SAU_SIRMN_OVCTMN;  /* clear error flag */
-	SMR02 = _SAU_SMRMN_INITIALVALUE | _SAU_CLOCK_SELECT_CK01 | _SAU_CLOCK_MODE_CKS | _SAU_TRIGGER_SOFTWARE | _SAU_MODE_CSI | _SAU_TRANSFER_END;
-	SCR02 = _SAU_RECEPTION_TRANSMISSION | _SAU_TIMING_4 | _SAU_MSB | _SAU_LENGTH_8;
-	SO0 &= ~_SAU_CH2_CLOCK_OUTPUT_1;  /* CSI10 clock initial level */
-	SO0 &= ~_SAU_CH2_DATA_OUTPUT_1;	 /* CSI10 SO initial level */
-	SOE0 |= _SAU_CH2_OUTPUT_ENABLE;	 /* enable CSI10 output */
+    SMR02 = _SAU_SMRMN_INITIALVALUE | _SAU_CLOCK_SELECT_CK01 | _SAU_CLOCK_MODE_CKS | _SAU_TRIGGER_SOFTWARE | _SAU_MODE_CSI | _SAU_TRANSFER_END;
+    SCR02 = _SAU_RECEPTION_TRANSMISSION | _SAU_TIMING_4 | _SAU_MSB | _SAU_LENGTH_8;
+    SO0 &= ~_SAU_CH2_CLOCK_OUTPUT_1;  /* CSI10 clock initial level */
+    SO0 &= ~_SAU_CH2_DATA_OUTPUT_1;   /* CSI10 SO initial level */
+    SOE0 |= _SAU_CH2_OUTPUT_ENABLE;   /* enable CSI10 output */
     
     SPI_SetBitRate(bitsPerSecond);
     
     /* Set SI10 pin */
-	PMC0 &= 0xF7U;
-	PM0 |= 0x08U;
-	/* Set SO10 pin */
-	P0 |= 0x04U;
-	PMC0 &= 0xFBU;
-	PM0 &= 0xFBU;
-	/* Set SCK10 pin */
-	P0 |= 0x10U;
-	PM0 &= 0xEFU;
+    PMC0 &= 0xF7U;
+    PM0 |= 0x08U;
+    /* Set SO10 pin */
+    P0 |= 0x04U;
+    PMC0 &= 0xFBU;
+    PM0 &= 0xFBU;
+    /* Set SCK10 pin */
+    P0 |= 0x10U;
+    PM0 &= 0xEFU;
     
     /* Start CSI10 module operation */
     SPI_EnableInterrupts();
@@ -256,7 +256,7 @@ void SPI_CS_Assert(uint8_t channel)
     }
     else {
         /* Set CS Low */
-	    *SPI_CS_P[channel] &= ~(1<<SPI_CS_Pin[channel]);
+      *SPI_CS_P[channel] &= ~(1<<SPI_CS_Pin[channel]);
     }
 }
 
@@ -274,7 +274,7 @@ void SPI_CS_Clear(uint8_t channel)
 {
     if(G_SPI_CSActiveHigh[channel]) {
         /* Set CS Low */
-	    *SPI_CS_P[channel] &= ~(1<<SPI_CS_Pin[channel]);
+      *SPI_CS_P[channel] &= ~(1<<SPI_CS_Pin[channel]);
     }
     else {
         /* Set CS High */
@@ -429,3 +429,4 @@ __interrupt static void SPI_ISRHandler(void)
 /*-------------------------------------------------------------------------*
  * End of File:  SPI.c
  *-------------------------------------------------------------------------*/
+

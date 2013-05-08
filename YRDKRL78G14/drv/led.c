@@ -9,14 +9,14 @@
 * Corporation. 
 *
 * 
-* Filename	: led.c
-* Version	: 1.0
-* Device:	: RL78/G13 R5F100LE
-* Description	: This file implements LED function.
+* Filename  : led.c
+* Version  : 1.0
+* Device:  : RL78/G13 R5F100LE
+* Description  : This file implements LED function.
 *******************************************************************************
 *******************************************************************************
-* History	: DD.MM.YYYY Version Description
-*		: 09.29.2011 1.00    First version.
+* History  : DD.MM.YYYY Version Description
+*    : 09.29.2011 1.00    First version.
 ******************************************************************************/
 
 /*
@@ -35,7 +35,7 @@ uint8_t G_LEDPin[] = { 2, 2, 3, 3, 4, 4, 5, 5, 6, 2, 7, 1, 1 };
 
 // Buttons
 uint8_t G_BtnPort[] = { 7, 7, 7 };
-uint8_t G_BtnPin[] = { 6, 4, 5 };	
+uint8_t G_BtnPin[] = { 6, 4, 5 };
 
 const T_GPIOPort PORT0 = {
     (unsigned char *)&P0,
@@ -103,15 +103,15 @@ const T_GPIOPort PORT15 = {
 };
 
 const T_GPIOPort *GPIOTable[] = {
-	&PORT0,
-	&PORT1,
-	&PORT2,
-	&PORT3,
-	&PORT4,
-	&PORT5,
-	&PORT6,
-	&PORT7,
-	0,
+  &PORT0,
+  &PORT1,
+  &PORT2,
+  &PORT3,
+  &PORT4,
+  &PORT5,
+  &PORT6,
+  &PORT7,
+  0,
     0,
     &PORT10,
     0,
@@ -175,7 +175,7 @@ void led_all_on(void)
 
 void led_task(void)
 {
-	// LED1 = gSetLight_onoff;
+  // LED1 = gSetLight_onoff;
   if(gSetLight_onoff)
     led_all_on();
   else
@@ -205,5 +205,6 @@ void LEDFlash(uint32_t timeout)
         }
     }
 }
+
 
 

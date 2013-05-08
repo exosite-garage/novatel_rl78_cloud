@@ -220,7 +220,7 @@ void App_WebProvisioning(void)
     }
     DisplayLCD(LCD_LINE6, "WebProv ON");
     DisplayLCD(LCD_LINE7, (const uint8_t *) "192.168.240.");
-    DisplayLCD(LCD_LINE8, (const uint8_t *) "1/prov.html");  
+    DisplayLCD(LCD_LINE8, (const uint8_t *) "1/prov.html");
 #if 0
     do {
         DisplayLCD(LCD_LINE7, "IP: ???.???.");
@@ -353,21 +353,21 @@ void App_StartupADKDemo(void)
     AtLibGs_DisAssoc();
     while (1) {
         DisplayLCD(LCD_LINE6, " Setting up");
-        
+
         r =AtLibGs_EnableRadio(1);                       // enable radio
         if (r != ATLIBGS_MSG_ID_OK) {
             DisplayLCD(LCD_LINE6, "Bad Mode!");
             MSTimerDelay(2000);
             continue;
         }  
-#if 0       
+#if 0
         r = AtLibGs_ConfigAntenna(1);
          if (r != ATLIBGS_MSG_ID_OK) {
             DisplayLCD(LCD_LINE6, "Configure Antenna Fail!");
             MSTimerDelay(2000);
             continue;
-        }  
-#endif       
+        }
+#endif
         r = AtLibGs_Mode(ATLIBGS_STATIONMODE_LIMITED_AP);
         if (r != ATLIBGS_MSG_ID_OK) {
             DisplayLCD(LCD_LINE6, "Bad Mode!");
@@ -388,46 +388,46 @@ void App_StartupADKDemo(void)
             MSTimerDelay(2000);
             continue;
         }
- #if 0             
+ #if 0
         r = AtLibGs_SetRegulatoryDomain(ATLIBGS_REGDOMAIN_TELEC);
          if (r != ATLIBGS_MSG_ID_OK) {
             DisplayLCD(LCD_LINE6, "Set Domain Fail");
             MSTimerDelay(2000);
             continue;
         }
-#endif        
+#endif
          r = AtLibGs_GetMAC(WiFiMAC);
          if (r != ATLIBGS_MSG_ID_OK) {
             DisplayLCD(LCD_LINE6, "Get MAC Failed!");
             MSTimerDelay(2000);
             continue;
         } 
-        
+
         if(r == ATLIBGS_MSG_ID_OK)
            AtLibGs_ParseGetMacResponse(WiFiMACStr);
-        
+
         strcpy(str_config_ssid, (char const*)ATLIBGS_ADK_SSID); 
         strcat(str_config_ssid, &WiFiMACStr[6]);                     // concatenate last 6 digis of MAC as SSID                          
-        DisplayLCD(LCD_LINE1, (const uint8_t *)str_config_ssid);   
+        DisplayLCD(LCD_LINE1, (const uint8_t *)str_config_ssid);
         r = AtLibGs_Assoc(str_config_ssid /*ATLIBGS_ADK_SSID*/, 0,
                 ATLIBGS_ADK_CHANNEL);
         if (r != ATLIBGS_MSG_ID_OK) {
             DisplayLCD(LCD_LINE6, "AP Failed!");
             MSTimerDelay(2000);
             continue;
-        }        
+        }
         r = AtLibGs_WebServer(1, "", "", "", "");
         if (r != ATLIBGS_MSG_ID_OK) {
             DisplayLCD(LCD_LINE6, "Server Failed!");
             MSTimerDelay(2000);
             continue;
-        }       
+        }
         r = AtLibGs_SetXMLParse(1);;
         if (r != ATLIBGS_MSG_ID_OK) {
             DisplayLCD(LCD_LINE6, "XML Failed!");
             MSTimerDelay(2000);
             continue;
-        }  
+        }
 #if 1 // mDNS_ENABLED
         // now start mNDS service 
         r = AtLibGs_StartMDNS();
@@ -435,20 +435,20 @@ void App_StartupADKDemo(void)
             DisplayLCD(LCD_LINE6, "MDNS1 Failed!");
             MSTimerDelay(2000);
             continue;
-        }        
+        }
         r = AtLibGs_RegisterMDNSHost("xyz","local");
         if (r != ATLIBGS_MSG_ID_OK) {
             DisplayLCD(LCD_LINE6, "MDNS2 Failed!");
             MSTimerDelay(2000);
             continue;
-        }             
+        }
         r = AtLibGs_RegisterMDNSService(ATLIBGS_ADK_MDNS_SERVER,"","_http","_tcp","local","80","path=/gainspan/profile/mcu");
       //  r = AtLibGs_RegisterMDNSService(ATLIBGS_ADK_MDNS_SERVER,"","_http","_tcp","local","80","path=/rdk.html");
         if (r != ATLIBGS_MSG_ID_OK) {
             DisplayLCD(LCD_LINE6, "MDNS3 Failed!");
             MSTimerDelay(2000);
             continue;
-        }          
+        }
         r = AtLibGs_AnnounceMDNS();
         if (r != ATLIBGS_MSG_ID_OK) {
             DisplayLCD(LCD_LINE6, "MDNS4 Failed!");
@@ -456,7 +456,7 @@ void App_StartupADKDemo(void)
             continue;
         }
 #endif
-        break;    
+        break;
     }
     DisplayLCD(LCD_LINE6, "");
     MSTimerDelay(2000);
@@ -519,7 +519,7 @@ void App_OverTheAirProgrammingPushMetheod(void)
     ATLIBGS_MSG_ID_E r;
 
     App_InitModule();
-     
+
     while(1)
     {
        r = AtLibGs_GetMAC(WiFiMAC);
@@ -668,3 +668,5 @@ void VirginCheck(void)
 /*-------------------------------------------------------------------------*
  * End of File:  App_Startup.c
  *-------------------------------------------------------------------------*/
+
+

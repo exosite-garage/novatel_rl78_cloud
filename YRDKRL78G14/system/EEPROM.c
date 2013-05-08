@@ -66,7 +66,14 @@ uint8_t EEPROM_Write(uint16_t offset, uint8_t *aData, uint16_t aSize)
         writeData[0] = (uint8_t)(i + offset)<<8;
         writeData[1] = (uint8_t)(i + offset);
         
-        for(j=0; j<EEPROM_BYTES_PER_WRITE; j++) {
+        // write till block is full, or we have reached the end of our data
+        for(j=0; 
+            (j<EEPROM_BYTES_PER_WRITE) && 
+            !(((i + EEPROM_BYTES_PER_WRITE) > aSize) && 
+               (j == (aSize%EEPROM_BYTES_PER_WRITE)) );
+            
+            j++) 
+        {
             writeData[2+j] = aData[i+j];
         }
         
@@ -286,3 +293,5 @@ bool EEPROM_Test()
 /*-------------------------------------------------------------------------*
  * End of File:  EEPROM.c
  *-------------------------------------------------------------------------*/
+
+

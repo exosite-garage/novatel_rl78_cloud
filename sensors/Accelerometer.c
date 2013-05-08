@@ -15,30 +15,30 @@
 /*-------------------------------------------------------------------------*
  * Constants:
  *-------------------------------------------------------------------------*/
-#define ACCEL_ADDR	    0x3Au
+#define ACCEL_ADDR      0x3Au
 
 #define DATA_FORMAT_REG 0x31u   
-#define POWER_CTL_REG  	0x2Du
-#define FIFO_CTL_REG   	0x38u
+#define POWER_CTL_REG    0x2Du
+#define FIFO_CTL_REG     0x38u
 #define DATAX_REG       0x32u
 #define DATAY_REG       0x34u
 #define DATAZ_REG       0x36u
 
 #define SELF_TEST       0x80u
 #define DATA_FORMAT     0x03u
-#define PWR_CFG     	0x08u
-#define FIFO_CFG     	0x00u
+#define PWR_CFG       0x08u
+#define FIFO_CFG       0x00u
 
 const uint8_t acc_reg_addr[3] = { DATAX_REG, DATAY_REG, DATAZ_REG };
 
-int16_t	gAccData[3];
+int16_t  gAccData[3];
 
 static uint8_t *pTxData;
 
 const uint8_t acc_config[3][2] = {
-	{DATA_FORMAT_REG, DATA_FORMAT},
-	{POWER_CTL_REG, PWR_CFG},
-	{FIFO_CTL_REG, FIFO_CFG}
+  {DATA_FORMAT_REG, DATA_FORMAT},
+  {POWER_CTL_REG, PWR_CFG},
+  {FIFO_CTL_REG, FIFO_CFG}
 };
 /*---------------------------------------------------------------------------*
  * Routine:  Accelerometer_Init
@@ -120,3 +120,6 @@ int16_t *Accelerometer_Get(void)
 /*-------------------------------------------------------------------------*
  * End of File:   LightSensor.c
  *-------------------------------------------------------------------------*/
+
+
+

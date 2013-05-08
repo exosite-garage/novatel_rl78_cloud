@@ -215,7 +215,7 @@ void SPI_Init(uint32_t bitsPerSecond)
             _0000_SAU_TRIGGER_SOFTWARE | _0000_SAU_MODE_CSI | _0000_SAU_TRANSFER_END;
     SCR13 = _C000_SAU_RECEPTION_TRANSMISSION | _3000_SAU_TIMING_4 | _0000_SAU_MSB | _0007_SAU_LENGTH_8;
     
-	SO1 &= ~_0800_SAU_CH3_CLOCK_OUTPUT_1;    /* CSI31 clock initial level */
+    SO1 &= ~_0800_SAU_CH3_CLOCK_OUTPUT_1;    /* CSI31 clock initial level */
     SO1 &= ~_0008_SAU_CH3_DATA_OUTPUT_1;    /* CSI31 SO initial level */
     SOE1 |= _0008_SAU_CH3_OUTPUT_ENABLE;    /* enable CSI31 output */
     
@@ -257,7 +257,7 @@ void SPI_CS_Assert(uint8_t channel)
     }
     else {
         /* Set CS Low */
-	    *SPI_CS_P[channel] &= ~(1<<SPI_CS_Pin[channel]);
+      *SPI_CS_P[channel] &= ~(1<<SPI_CS_Pin[channel]);
     }
 }
 
@@ -275,7 +275,7 @@ void SPI_CS_Clear(uint8_t channel)
 {
     if(G_SPI_CSActiveHigh[channel]) {
         /* Set CS Low */
-	    *SPI_CS_P[channel] &= ~(1<<SPI_CS_Pin[channel]);
+      *SPI_CS_P[channel] &= ~(1<<SPI_CS_Pin[channel]);
     }
     else {
         /* Set CS High */
@@ -444,3 +444,6 @@ void writeREG_SIO31( uint8_t data)
 /*-------------------------------------------------------------------------*
  * End of File:  SPI.c
  *-------------------------------------------------------------------------*/
+
+
+

@@ -23,8 +23,12 @@ bool UART0_SendByte(uint8_t aByte);
 uint32_t UART0_SendData(const uint8_t *aData, uint32_t aLen);
 void UART0_SendDataBlock(const uint8_t *aData, uint32_t aLen);
 bool UART0_IsTransmitEmpty(void);
+void UART0_ResetBuffers(void);
 
 #endif // _UART0_H
 /*-------------------------------------------------------------------------*
  * End of File:  UART0.h
  *-------------------------------------------------------------------------*/
+
+
+

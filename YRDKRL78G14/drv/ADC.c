@@ -24,8 +24,8 @@
 #pragma vector = INTAD_vect
 __interrupt void Interrupt_ADC(void)
 {
-	/* Start user code. Do not edit comment generated here */
-	/* End user code. Do not edit comment generated here */
+  /* Start user code. Do not edit comment generated here */
+  /* End user code. Do not edit comment generated here */
 }
 
 /*---------------------------------------------------------------------------*
@@ -104,3 +104,5 @@ uint32_t ADC_GetReading(uint8_t channel)
 /*-------------------------------------------------------------------------*
  * End of File:  ADC.c
  *-------------------------------------------------------------------------*/
+
+

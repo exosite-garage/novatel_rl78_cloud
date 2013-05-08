@@ -12,7 +12,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <system/platform.h>
-#include <drv/UART0.h>
+#include <drv/UART2.h>
 
 #define CONSOLE_ECHO 1
 
@@ -33,30 +33,30 @@
  *---------------------------------------------------------------------------*/
 void ConsolePrintf(const char *format, ...)
 {
-    static volatile uint8_t buffer[CONSOLE_BUFFER_SIZE];
-    volatile uint8_t *p;
-    va_list args;
+    // static volatile uint8_t buffer[CONSOLE_BUFFER_SIZE];
+    // volatile uint8_t *p;
+    // va_list args;
 
-    /* Start processing the arguments */
-    va_start(args, format);
+    // /* Start processing the arguments */
+    // va_start(args, format);
 
-    /* Output the parameters into a string */
-    vsprintf((char *)buffer, format, args);
+    // /* Output the parameters into a string */
+    // vsprintf((char *)buffer, format, args);
 
-    /* Output the string to the console */
-    p = buffer;
-    while (*p) {
-        if (*p == '\n')
-            UART0_SendByte('\r');
-        UART0_SendByte(*p);
-        if (*p == '\n')
-            while (!UART0_IsTransmitEmpty()) {
-            }
-        p++;
-    }
+    // /* Output the string to the console */
+    // p = buffer;
+    // while (*p) {
+        // if (*p == '\n')
+            // UART2_SendByte('\r');
+        // UART2_SendByte(*p);
+        // if (*p == '\n')
+            // while (!UART2_IsTransmitEmpty()) {
+            // }
+        // p++;
+    // }
 
-    /* End processing of the arguments */
-    va_end(args);
+    // /* End processing of the arguments */
+    // va_end(args);
 }
 
 /*---------------------------------------------------------------------------*
@@ -118,3 +118,7 @@ void ConsoleReadLine(char *string)
 /*-------------------------------------------------------------------------*
  * End of File:  console.c
  *-------------------------------------------------------------------------*/
+
+
+
+

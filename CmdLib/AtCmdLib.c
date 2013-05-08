@@ -2692,70 +2692,69 @@ void AtLibGs_ParseHTTPData(
 #if 1
 int stricmp(const char *s1, const char *s2)
 {
-	const uint8_t *us1 = (const uint8_t *)s1, *us2 = (const uint8_t *)s2;
+  const uint8_t *us1 = (const uint8_t *)s1, *us2 = (const uint8_t *)s2;
 
-	while (tolower(*us1) == tolower(*us2)) {
-		if (*us1++ == '\0')
-			return (0);
-		us2++;
-	}
-	return (tolower(*us1) - tolower(*us2));
+  while (tolower(*us1) == tolower(*us2)) {
+    if (*us1++ == '\0')
+      return (0);
+    us2++;
+  }
+  return (tolower(*us1) - tolower(*us2));
 }
 
 char  *pDebugMsg;
 char  at_cmd_buf[128];
 
 char *strrev(char *str) {
-	char *p1, *p2;
+  char *p1, *p2;
 
-	if (!str || !*str)
-		return str;
+  if (!str || !*str)
+    return str;
 
-	for (p1 = str, p2 = str + strlen(str) - 1; p2 > p1; ++p1, --p2) {
-		*p1 ^= *p2;
-		*p2 ^= *p1;
-		*p1 ^= *p2;
-	}
+  for (p1 = str, p2 = str + strlen(str) - 1; p2 > p1; ++p1, --p2) {
+    *p1 ^= *p2;
+    *p2 ^= *p1;
+  *p1 ^= *p2;
+  }
 
-	return str;
+  return str;
 }
 
 void 
 AtLib_ConvertNumberTo4DigitASCII(uint32_t myNum, int8_t *pStr)
 {/* Its equivalent of  sprintf("%04d",myNum) */
 
-	/* TBD: Find better way to convert number to 4 digit ASCII value */
+  /* TBD: Find better way to convert number to 4 digit ASCII value */
 
-	uint8_t	digit1 ;
-	uint8_t	digit2 ;
-	uint8_t	digit3 ;
-	uint8_t	digit4 ;
+  uint8_t  digit1 ;
+  uint8_t  digit2 ;
+  uint8_t  digit3 ;
+  uint8_t  digit4 ;
 
-	digit1 = myNum/1000;
-	digit2 = (myNum%1000)/100;
-	digit3 = ((myNum%1000)%100)/10;
-	digit4 = ((myNum%1000)%100)%10;
+  digit1 = myNum/1000;
+  digit2 = (myNum%1000)/100;
+  digit3 = ((myNum%1000)%100)/10;
+  digit4 = ((myNum%1000)%100)%10;
 
-	sprintf(pStr,"%d%d%d%d",digit1,digit2,digit3,digit4);
-	
+  sprintf((char *)pStr,"%d%d%d%d",(char)digit1,(char)digit2,(char)digit3,(char)digit4);
 }
 
 char *itoa(int n, char *s, int b) {
-	static char digits[] = "0123456789abcdefghijklmnopqrstuvwxyz";
-	int i=0, sign;
+  static char digits[] = "0123456789abcdefghijklmnopqrstuvwxyz";
+  int i=0, sign;
     
-	if ((sign = n) < 0)
-		n = -n;
+  if ((sign = n) < 0)
+    n = -n;
 
-	do {
-		s[i++] = digits[n % b];
-	} while ((n /= b) > 0);
+  do {
+    s[i++] = digits[n % b];
+  } while ((n /= b) > 0);
 
-	if (sign < 0)
-		s[i++] = '-';
-	s[i] = '\0';
+  if (sign < 0)
+    s[i++] = '-';
+  s[i] = '\0';
 
-	return strrev(s);
+  return strrev(s);
 }
 
 void AtLib_GSLinkSendValue( int8_t *pTag, uint8_t cid, int32_t value)
@@ -2763,10 +2762,10 @@ void AtLib_GSLinkSendValue( int8_t *pTag, uint8_t cid, int32_t value)
     uint32_t command_length;   int8_t cData[5], cDataLen[5];
     int8_t dataBuf[20];
     
-    itoa(value, cData, 10);
+    itoa((long)value, (char *)cData, 10);
     
-    sprintf (&(dataBuf[0]),"%s%c%s", pTag,':',cData); 
-    command_length = strlen(dataBuf);      /* Get command length */
+    sprintf ((char *)&(dataBuf[0]),"%s%c%s", (char *)pTag,':',(char *)cData); 
+    command_length = strlen((char *)dataBuf);      /* Get command length */
     AtLib_ConvertNumberTo4DigitASCII(command_length, cDataLen);
      
     sprintf ( &(at_cmd_buf[0]),"%c%c%c%s%s",ATLIBGS_ESC_CHAR,'G', cid,cDataLen, dataBuf); 
@@ -2774,18 +2773,18 @@ void AtLib_GSLinkSendValue( int8_t *pTag, uint8_t cid, int32_t value)
     
     //printf("\n\r%s", at_cmd_buf);
     //R_UART0_Send(at_cmd_buf, strlen(at_cmd_buf));
-	/* Now send the bulk data START indication message  to S2w node */
-	#ifdef USE_SPI
-	    AtLibGs_DataSend((uint8_t *) &at_cmd_buf[0],command_length);
-	#else
-	   GS_UARTTransfer((uint8_t *) &at_cmd_buf[0],command_length);
-	#endif
+  /* Now send the bulk data START indication message  to S2w node */
+  #ifdef USE_SPI
+      AtLibGs_DataSend((uint8_t *) &at_cmd_buf[0],command_length);
+  #else
+     GS_UARTTransfer((uint8_t *) &at_cmd_buf[0],command_length);
+  #endif
 }
-extern int16_t		gAccData[3];
-extern float		gTemp, gTemp_F, gTemp_C;
+extern int16_t    gAccData[3];
+extern float    gTemp, gTemp_F, gTemp_C;
 extern uint8_t      gTempMode;
-extern uint16_t		gAmbientLight;
-extern uint8_t		gSetLight_onoff;
+extern uint16_t    gAmbientLight;
+extern uint8_t    gSetLight_onoff;
 //extern const char  str_URL[32];
 //extern const char  str_rootTag[16];
 // extern enum { TEMP_MODE_F, TEMP_MODE_C };
@@ -2806,8 +2805,8 @@ void AtLib_GSLinkSendTempValue( int8_t *pTag, uint8_t cid)
         sprintf (&(dataBuf[0]),"%s%c%.1fF", pTag,':',gTemp_F);       
     }
 #endif
-    sprintf (&(dataBuf[0]),"%s%c%.1fF", pTag,':',gTemp_F);   
-    command_length = strlen(dataBuf);      /* Get command length */
+    sprintf ((char *)&(dataBuf[0]),"%s%c%.1fF", (char *)pTag,':',gTemp_F);   
+    command_length = strlen((char *)dataBuf);      /* Get command length */
     AtLib_ConvertNumberTo4DigitASCII(command_length, cDataLen);
      
     sprintf ( &(at_cmd_buf[0]),"%c%c%c%s%s",ATLIBGS_ESC_CHAR,'G', cid,cDataLen, dataBuf); 
@@ -2815,25 +2814,26 @@ void AtLib_GSLinkSendTempValue( int8_t *pTag, uint8_t cid)
     
     //printf("\n\r%s", at_cmd_buf);
     //R_UART0_Send(at_cmd_buf, strlen(at_cmd_buf));
-	/* Now send the bulk data START indication message  to S2w node */
-	#ifdef USE_SPI
-	    AtLibGs_DataSend((uint8_t *) &at_cmd_buf[0],command_length);
-	#else
-	   GS_UARTTransfer((uint8_t *) &at_cmd_buf[0],command_length);
-	#endif
+  /* Now send the bulk data START indication message  to S2w node */
+  #ifdef USE_SPI
+      AtLibGs_DataSend((uint8_t *) &at_cmd_buf[0],command_length);
+  #else
+     GS_UARTTransfer((uint8_t *) &at_cmd_buf[0],command_length);
+  #endif
 }
 
 void AtLib_GSLinkSend3Value( int8_t *pTag, uint8_t cid, int32_t value1, int32_t value2, int32_t value3)
 {
-    uint32_t command_length;   int8_t cData1[5], cData2[5], cData3[5], cDataLen[5];
+    uint32_t command_length;
+    int8_t cData1[5], cData2[5], cData3[5], cDataLen[5];
     int8_t dataBuf[20];
     
-    itoa(value1, cData1, 10);
-    itoa(value2, cData2, 10);
-    itoa(value3, cData3, 10);
+    itoa(value1, (char *)cData1, 10);
+    itoa(value2, (char *)cData2, 10);
+    itoa(value3, (char *)cData3, 10);
     
-    sprintf (&(dataBuf[0]),"%s%c%s,%s,%s", pTag,':',cData1, cData2, cData3); 
-    command_length = strlen(dataBuf);      /* Get command length */
+    sprintf ((char *)&(dataBuf[0]),"%s%c%s,%s,%s", (char *)pTag,':',(char *)cData1, (char *)cData2, (char *)cData3); 
+    command_length = strlen((char *)dataBuf);      /* Get command length */
     AtLib_ConvertNumberTo4DigitASCII(command_length, cDataLen);
      
     sprintf ( &(at_cmd_buf[0]),"%c%c%c%s%s",ATLIBGS_ESC_CHAR,'G',cid,cDataLen, dataBuf); 
@@ -2841,12 +2841,12 @@ void AtLib_GSLinkSend3Value( int8_t *pTag, uint8_t cid, int32_t value1, int32_t 
     
     // printf("\n\r%s", at_cmd_buf);
     //R_UART0_Send(at_cmd_buf, strlen(at_cmd_buf));
-	/* Now send the bulk data START indication message  to S2w node */
-	#ifdef USE_SPI
-	    AtLibGs_DataSend((uint8_t *) &at_cmd_buf[0],command_length);
-	#else
-	   GS_UARTTransfer((uint8_t *) &at_cmd_buf[0],command_length);
-	#endif
+  /* Now send the bulk data START indication message  to S2w node */
+  #ifdef USE_SPI
+      AtLibGs_DataSend((uint8_t *) &at_cmd_buf[0],command_length);
+  #else
+     GS_UARTTransfer((uint8_t *) &at_cmd_buf[0],command_length);
+  #endif
 }
 
 void AtLib_GSLinkPostDoneAck( uint8_t cid )
@@ -2858,20 +2858,20 @@ void AtLib_GSLinkPostDoneAck( uint8_t cid )
     
     //printf("\n\r%s", at_cmd_buf);
     //R_UART0_Send(at_cmd_buf, strlen(at_cmd_buf));
-	/* Now send the bulk data START indication message  to S2w node */
-	#ifdef USE_SPI
-	    AtLibGs_DataSend((uint8_t *) &at_cmd_buf[0],command_length);
-	#else
-	   GS_UARTTransfer((uint8_t *) &at_cmd_buf[0],command_length);
-	#endif
+  /* Now send the bulk data START indication message  to S2w node */
+  #ifdef USE_SPI
+      AtLibGs_DataSend((uint8_t *) &at_cmd_buf[0],command_length);
+  #else
+     GS_UARTTransfer((uint8_t *) &at_cmd_buf[0],command_length);
+  #endif
 }
 
 void AtLib_GSLinkGetPostResp(uint8_t cid, uint8_t gslinkType, int32_t TimeOut, uint8_t *pURL, uint8_t *pHdTag, uint8_t numOfValue)
 { /*<Esc> <Z> <Cid> <Data Length xxxx 4 ascii char> <data>     */
 
-	uint32_t command_length;   int8_t cTimeout[5];  uint8_t TxCRD=0xD; 
+  uint32_t command_length;   int8_t cTimeout[5];  uint8_t TxCRD=0xD; 
     
-    itoa(TimeOut, cTimeout, 10);
+    itoa(TimeOut, (char *)cTimeout, 10);
     
     sprintf (&(at_cmd_buf[0]),"%s%c,%x,%s,%s,%s,%x","AT+XMLSEND=",cid, gslinkType, cTimeout, pURL, pHdTag, numOfValue); 
      
@@ -2879,15 +2879,15 @@ void AtLib_GSLinkGetPostResp(uint8_t cid, uint8_t gslinkType, int32_t TimeOut, u
 
     // printf("\n\r%s", at_cmd_buf);
     //R_UART0_Send(at_cmd_buf, strlen(at_cmd_buf));
-	/* Now send the bulk data START indication message  to S2w node */
-	#ifdef USE_SPI
-	    AtLibGs_DataSend((uint8_t *) &at_cmd_buf[0],command_length);
+  /* Now send the bulk data START indication message  to S2w node */
+  #ifdef USE_SPI
+      AtLibGs_DataSend((uint8_t *) &at_cmd_buf[0],command_length);
         AtLibGs_DataSend(&TxCRD,1);                                       // send CR to end the AT command
-	#else
-	   GS_UARTTransfer((uint8_t *) &at_cmd_buf[0],command_length);
-	#endif
+  #else
+     GS_UARTTransfer((uint8_t *) &at_cmd_buf[0],command_length);
+  #endif
        
-	/* Now send the actual value numOfValue times */
+  /* Now send the actual value numOfValue times */
        
      //AtLib_GSLinkSendValue( "temp", cid, gTemp_F);
        
@@ -3049,7 +3049,7 @@ ATLIBGS_MSG_ID_E AtLibGs_ReceiveDataProcess(uint8_t rxData)
                 receive_state = ATLIBGS_RX_STATE_START;
             }
             break;
-	    case ATLIBGS_RX_STATE_DATA_CID:
+      case ATLIBGS_RX_STATE_DATA_CID:
           rxCurrentCid=rxData;
           if(escStatus==ATLIBGS_DATA_MODE_GSLINK_START_CHAR_K)
           {
@@ -5078,7 +5078,7 @@ ATLIBGS_MSG_ID_E AtLibGs_SetSocketOptions(
     sprintf(
             cmd,
             "AT+SETSOCKOPT=" _F8_ "," _F16_ "," _F16_ "," _F32_ "," _F16_ "\r\n",
-            cid, type, param, value, length);
+            (char)cid, (int)type, (int)param, (long)value, (int)length);
 
     return AtLibGs_CommandSendString(cmd);
 }
@@ -5678,15 +5678,16 @@ ATLIBGS_MSG_ID_E AtLibGs_RegisterMDNSHost(char hostname[], char domain[])
 ATLIBGS_MSG_ID_E  AtLibGs_RegisterMDNSService(char *pServerName, char *pServerSubType, char *pServiceType, \
                                              char *pProtocol,  char *pDomain, char *pPort,  char *pKey1 )
 {
-	char cmd[128];
+  char cmd[128];
 
-	/* Construct the AT command */
+  /* Construct the AT command */
     sprintf(cmd,"AT+MDNSSRVREG=%s,%s,%s,%s,%s,%s,%s\r\n",pServerName,pServerSubType,pServiceType,pProtocol,pDomain,pPort,pKey1);
     //sprintf(cmd, "AT+MDNSSRVREG=%s,,_http,_tcp,local,80,path=/gainspan/profile/mcu\r\n", "Renesas0")
-	
-	return  AtLibGs_CommandSendString(cmd);
+  
+  return  AtLibGs_CommandSendString(cmd);
 }
 /*-------------------------------------------------------------------------*
  * End of File:  AtCmdLib.c
  *-------------------------------------------------------------------------*/
+
 
