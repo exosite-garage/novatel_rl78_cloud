@@ -295,14 +295,14 @@ void App_Exosite(void)
         }
         // POST the Sensor and templature values
         UpdateReadings();
-        if (loopCount++ >= WRITE_INTERVAL)
-        {
+        //if (loopCount++ >= WRITE_INTERVAL)
+        //{
             ReportReadings();
-            loopCount = 0;
-        }
+        //    loopCount = 0;
+        //}
 
         // TODO - make this a sleep instead of busy wait
-        MSTimerDelay(loop_time); //delay before looping again
+        //MSTimerDelay(loop_time); //delay before looping again
     }
 }
 
