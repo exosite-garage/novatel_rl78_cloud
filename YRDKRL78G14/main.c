@@ -77,8 +77,6 @@ typedef enum
 } APP_STATE_E;
 
 
-#define POWER_OFF_PIN   5 // In port 8
-#define MODEM_PHON_PIN  5 // In Port 15
 
 /*---------------------------------------------------------------------------*
 * Routine:  main

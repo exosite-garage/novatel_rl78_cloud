@@ -509,9 +509,38 @@ void exoHAL_MSDelay(unsigned short delay)
 // perform modem initialization in here
 void exoHAL_initModem()
 {
-    
-    
-    AtModem_Init();
+    while( AtModem_Init() == -1)
+    {
+      // reset the modem
+      P8 &= ~(1<<POWER_OFF_PIN); //SET LOW
+      PM8 &= ~(1<<POWER_OFF_PIN); //SET AS OUTPUT
+      P8 |= (1<<POWER_OFF_PIN);  //SET HIGH
+      MSTimerDelay(500); //pulse
+      P8 &= ~(1<<POWER_OFF_PIN); //SET LOW
+
+
+      // pulse the phone pin as well
+      ADPC = 0x09U;   //DEFAULT is all AINx pins are Analog, change 8-15
+                      // to digital
+      P15 &= ~(1<<MODEM_PHON_PIN); //SET LOW
+      PM15 &= ~(1<<MODEM_PHON_PIN); //SET AS OUTPUT
+      P15 |= (1<<MODEM_PHON_PIN);  //SET HIGH
+      MSTimerDelay(500); //pulse
+      P15 &= ~(1<<MODEM_PHON_PIN); //SET LOW
+      PM15 |= (1<<MODEM_PHON_PIN); //SET AS INPUT
+
+      // wait for modem to power up
+      DisplayLCD(LCD_LINE1, "Waiting for ");
+      DisplayLCD(LCD_LINE2, "  Modem to  ");
+      DisplayLCD(LCD_LINE3, " Initialize ");
+      DisplayLCD(LCD_LINE4, "      3     ");
+      MSTimerDelay(1000);
+      DisplayLCD(LCD_LINE4, "      2     ");
+      MSTimerDelay(1000);
+      DisplayLCD(LCD_LINE4, "      1     ");
+      MSTimerDelay(1000);
+      DisplayLCD(LCD_LINE4, "");
+    }
     
     // if modem isn't activated, tell user.
     if(!Novatel_isModemActivate())

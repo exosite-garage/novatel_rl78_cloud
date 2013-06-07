@@ -25,6 +25,9 @@
 #define ATMODEM_MAC_MAX_LENGTH      18
 #define ATMODEM_PASSWORD_MAX_LENGTH     32      // TODO: Is this correct?
 
+#define POWER_OFF_PIN   5 // In port 8
+#define MODEM_PHON_PIN  5 // In Port 15
+
 #define NOVATEL_UART_BAUD_RATE  115200
 typedef enum
 {
