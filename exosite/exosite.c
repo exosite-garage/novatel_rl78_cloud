@@ -515,7 +515,11 @@ EXOSITE_DEVICE_ACTIVATION_STATE activate_device(void)
     if (sock == 0)
     {
         exoHAL_HandleError(EXO_ERROR_CONNECT);
+        MSTimerDelay(3000);
+        // restart mcu
+        WDTIMK = 1U;	/* disable INTWDTI interrupt, stop kicking watchdog */
         while(1);
+
     }
 
     char cik[CIK_LENGTH] = {'\0'};

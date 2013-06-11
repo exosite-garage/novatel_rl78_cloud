@@ -111,6 +111,7 @@ void MSTimerDelay(uint32_t ms)
     uint32_t start = MSTimerGet();
 
     while (MSTimerDelta(start) < ms) {
+      WDTE = 0xACU;  // kick watchdog
     }
 }
 

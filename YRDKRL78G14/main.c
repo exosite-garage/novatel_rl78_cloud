@@ -44,13 +44,16 @@ extern int16_t gAccData[3];
 *-------------------------------------------------------------------------*/
 /* Set option bytes */
 #pragma location = "OPTBYTE"
-__root const uint8_t opbyte0 = 0xEFU;
+__root const uint8_t opbyte0 = 0xFDU;
 #pragma location = "OPTBYTE"
 __root const uint8_t opbyte1 = 0xFFU;
 #pragma location = "OPTBYTE"
 __root const uint8_t opbyte2 = 0xF8U;
 #pragma location = "OPTBYTE"
 __root const uint8_t opbyte3 = 0x04U;
+
+
+
 
 /* Set security ID */
 #pragma location = "SECUID"
@@ -106,7 +109,9 @@ extern void App_OverTheAirProgrammingPushMetheod(void);
 int main(void)
 {
     AppMode_T AppMode;
-
+    WDTIMK = 0U;	/* enable INTWDTI interrupt */
+   
+    
     HardwareSetup();
     MSTimerInit();
     
@@ -175,7 +180,9 @@ int main(void)
 
     /* If the CIK is exist, auto into the Exosite mode */
     NVSettingsLoad(&GNV_Setting);
-
+    
+    
+   
 
     if(AppMode == RUN_EXOSITE)
     {
@@ -215,6 +222,14 @@ int main(void)
 
     return 0;
 }
+
+
+#pragma vector = INTWDTI_vect
+__interrupt void watchdogInt(void)
+{
+  WDTE = 0xACU;// kick watchdog
+}
+
 /*-------------------------------------------------------------------------*
 * End of File:  main.c
 *-------------------------------------------------------------------------*/
