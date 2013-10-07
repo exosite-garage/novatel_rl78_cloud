@@ -42,9 +42,8 @@
 #include "NVSettings.h"
 #include <sensors/Temperature.h>
 #include <sensors/Potentiometer.h>
-#include <exosite/exosite_hal.h>
-#include <exosite/exosite_meta.h>
-#include <exosite/exosite.h>
+#include <exosite.h>
+#include <exosite_pal.h>
 #include <inc/common.h>
 
 // Globals:
@@ -219,7 +218,7 @@ void ReportReadings(void)
     ping++;
     if (ping >= 100)
         ping = 0;
-    Exosite_Write(content, strlen(content));
+    exosite_write(content, strlen(content));
 
     return;
 }
@@ -242,7 +241,7 @@ unsigned char checkWiFiConnected(void)
     if(!AtLibGs_IsNodeAssociated())
     {
         WIFI_Associate();
-        Exosite_Init("renesas", "rl78g14", IF_WIFI);
+        //exosite_init("renesas", "rl78g14");
     }
     RSSIReading();
 
@@ -270,14 +269,12 @@ void App_Exosite(void)
     int loop_time = 1000;
     unsigned char loopCount = 0;
 
-    // tell HAL iface we're using
-    exoHAL_SetIface(IF_NOVATEL);
-    
+    AtModem_Init();
     
     DisplayLCD(LCD_LINE4, "Checking w/");
     DisplayLCD(LCD_LINE5, " Exosite   ");
     
-    Exosite_Init("renesas", "YRDKRL78G14CDMA", IF_NOVATEL);
+    exosite_init("renesas", "YRDKRL78G14CDMA");
     
     DisplayLCD(LCD_LINE3, "Starting    ");
     DisplayLCD(LCD_LINE4, "Application ");
@@ -285,7 +282,9 @@ void App_Exosite(void)
     
     while (1)
     {
-        if (Exosite_Read("led_ctrl", pbuf, EXO_BUFFER_SIZE))
+        uint16_t responseLength = 0;
+
+        if (!exosite_readSingle("led_ctrl", pbuf, EXO_BUFFER_SIZE, &responseLength))
         {
             if (!strncmp(pbuf, "0", 1))
                 led_all_off();

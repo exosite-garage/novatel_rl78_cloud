@@ -1,6 +1,6 @@
 /*****************************************************************************
 *
-*  exosite.h - Exosite library interface header
+*  exosite_hal.h - Common header for Exosite hardware adapation layer
 *  Copyright (C) 2012 Exosite LLC
 *
 *  Redistribution and use in source and binary forms, with or without
@@ -33,45 +33,32 @@
 *
 *****************************************************************************/
 
-#ifndef EXOSITE_H
-#define EXOSITE_H
-
+#ifndef EXOSITE_HAL_H
+#define EXOSITE_HAL_H
 #include <stdint.h>
 
-// defines
-typedef enum
-{
-    IF_WIFI,
-    IF_ENET,
-    IF_FILE,
-    IF_HDD,
-    IF_I2C,
-    IF_GPRS,
-    IF_NOVATEL,
-    IF_NONE
-}UUIDInterfaceTypes;
-#define EXOSITE_DEMO_UPDATE_INTERVAL            4000 // ms
-#define CIK_LENGTH                              40
 
-typedef enum
-{
-    CONNECTION_ERROR,       /*!< Error in connecting to Exosite */
-    VALID_CIK,              /*!< CIK is valid  */
-    DEVICE_NOT_ENABLED,     /*!< Device has not been enabled */
-    R_W_ERROR               /*!< R/W error */
-}EXOSITE_DEVICE_ACTIVATION_STATE;
+// defines
+
 
 // functions for export
-int Exosite_Write(char * pbuf, unsigned char bufsize);
-int Exosite_Read(char * palias, char * pbuf, unsigned char buflen);
-void Exosite_Init(const char *vendor, const char *model, const unsigned char if_nbr);
-void Exosite_Cloud_Setup(void);
-int Exosite_CheckCIK(void);
-void Exosite_SetCIK(char * pCIK);
-void Exosite_GetCIK(char * pCIK);
-int Exosite_Cloud_Status(void);
-EXOSITE_DEVICE_ACTIVATION_STATE activate_device(void);
-#endif
 
+uint8_t exoPal_setCik(const char * read_buffer);
+uint8_t exoPal_getCik(char * read_buffer);
+uint8_t exoPal_getModel(char * read_buffer);
+uint8_t exoPal_getVendor(char * read_buffer);
+uint8_t exoPal_getUuid(char * read_buffer);
+
+uint8_t exoPal_tcpSocketClose();
+uint8_t exoPal_tcpSocketOpen();
+uint8_t exoPal_socketRead( char * buffer, uint16_t bufSize, uint16_t * responseLength);
+uint8_t exoPal_socketWrite( const char * buffer, uint16_t len);
+
+uint8_t exoPal_itoa(int value, char* str, uint8_t radix);
+uint16_t exoPal_strlen(const char *s);
+uint8_t exoPal_memcpy(char * dst, const char * src, uint16_t length);
+
+
+#endif
 
 

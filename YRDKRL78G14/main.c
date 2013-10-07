@@ -30,8 +30,7 @@
 #include "stdio.h"
 #include "string.h"
 #include "led.h"
-#include <exosite/exosite.h> //Include the exosite.h for Exosite's CIK read function
-#include <exosite/exosite_meta.h> //Include the exosite_meta.h for Exosite's CIK read function
+#include <exosite.h>
 
 extern void LEDFlash(uint32_t timeout);
 extern void led_task(void);
@@ -126,7 +125,7 @@ int main(void)
     /* Determine if SW1 & SW3 is pressed at power up to enter nvm erase mode */
     if (Switch1IsPressed() && Switch3IsPressed())
     {
-        exosite_meta_defaults();
+
         DisplayLCD(LCD_LINE1, "*NVM ERASED*");
         DisplayLCD(LCD_LINE2, "Reboot      ");
         DisplayLCD(LCD_LINE3, "  Device    ");
